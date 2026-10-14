@@ -1,0 +1,14 @@
+---
+import type { Organizer } from '../data/organizers';
+import { publicPath } from '../lib/paths';
+import Icon from './Icon.astro';
+interface Props { person: Organizer; index: number }
+const { person, index } = Astro.props;
+---
+<article class="organizer-card">
+  <div class="organizer-top">
+    {person.portrait ? <img class="organizer-avatar" src={publicPath(person.portrait)} alt="" width="88" height="88" loading="lazy" decoding="async" /> : <div class={`organizer-avatar avatar-${index % 3}`} aria-hidden="true">{person.initials}</div>}
+    <a class="profile-link" href={person.website || `mailto:${person.email}`} aria-label={person.website ? `${person.name} — personal website` : `Email ${person.name}`}><Icon name={person.website ? 'external' : 'mail'} size={20} /></a>
+  </div>
+  <h3>{person.name}</h3><p class="affiliation">{person.affiliation}</p><p class="country">{person.country}</p>
+</article>

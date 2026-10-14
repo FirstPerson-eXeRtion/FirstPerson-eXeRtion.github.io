@@ -1,0 +1,96 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import Icon from '../components/Icon.astro';
+import OrganizerCard from '../components/OrganizerCard.astro';
+import PaperCard from '../components/PaperCard.astro';
+import { workshop } from '../data/workshop';
+import { topics, topicKeywords } from '../data/topics';
+import { submissions } from '../data/submissions';
+import { dates, dateNotes } from '../data/dates';
+import { papers } from '../data/papers';
+import { program } from '../data/program';
+import { organizers } from '../data/organizers';
+import { faq } from '../data/faq';
+const submissionDeadline = dates.find(date => date.label === 'Submission deadline');
+---
+<Layout>
+  <Header />
+  <main id="main-content" tabindex="-1">
+    <Hero />
+
+    <section class="section about-section" id="about" aria-labelledby="about-title" tabindex="-1">
+      <div class="container">
+        <div class="about-grid">
+          <div><p class="eyebrow"><span>01</span> / THE WORKSHOP</p><h2 id="about-title">Workshop<br/><span class="text-cyan">Overview</span></h2></div>
+          <div class="about-copy"><p class="lead">We explore how XR technologies can empower people to access and engage with their data while in motion.</p><p>FPXR explores how bodily movement, physical exertion, and attention to the ongoing activity shape what information people need, how it should be visualized, and how they can interact with it. Relevant tasks include monitoring effort, comparing current performance with a target, and interpreting information about the surrounding environment to inform immediate decisions.</p><p>The workshop brings together researchers and practitioners in XR, visualization, HCI, and sports science. It considers interaction as an integral part of visualization and includes everyday movement and exertion beyond sport.</p></div>
+        </div>
+        <div class="vision-strip"><div><span class="vision-number">01 /</span><h3>Spatial design</h3><p>Examine layout, positioning, and anchoring for XR visualizations during physical activity.</p></div><div><span class="vision-number">02 /</span><h3>Interaction techniques</h3><p>Support data interaction while accommodating movement, exertion, and attention to the activity.</p></div><div><span class="vision-number">03 /</span><h3>Evaluation methods</h3><p>Assess data understanding, interaction, and effects on physical activity and safety.</p></div></div>
+      </div>
+    </section>
+
+    <section class="section topics-section" id="topics" aria-label="Topics of interest" tabindex="-1">
+      <div class="container">
+        <SectionHeading number="02" label="TOPICS OF INTEREST" title="Themes and Topics of Interest" description="The workshop focuses on three complementary themes in XR visualization and interaction during physical activity." />
+        <div class="topics-grid">{topics.map(topic => <article class={`topic-card topic-${topic.id}`}><div class="topic-top"><span class="topic-icon"><Icon name={topic.icon} size={30} /></span><span class="topic-index">{topic.id} / {topic.theme}</span></div><h3>{topic.title}</h3><p>{topic.description}</p><div class="tags">{topic.tags.map(tag => <span>{tag}</span>)}</div></article>)}</div>
+        <div class="topic-keywords"><span>ACROSS CONTEXTS</span><p>{topicKeywords.map((word, i) => <><span>{word}</span>{i < topicKeywords.length - 1 && <span class="keyword-dot" aria-hidden="true">·</span>}</>)}</p></div>
+      </div>
+    </section>
+
+    <section class="section participation-section" id="participate" aria-label="Call for participation" tabindex="-1">
+      <div class="container">
+        <SectionHeading number="03" label="CALL FOR PARTICIPATION" title="Call for Participation" description="We welcome original research, work in progress, design studies, and position papers on first-person XR in motion." />
+        <div class="participation-grid">
+          <div class="submission-details">
+            <div class="submission-block"><h3>What to submit</h3><p>{submissions.themeRequirement}</p><ul class="submission-types">{submissions.types.map(type => <li><Icon name="check" size={16} />{type}</li>)}</ul></div>
+            <div class="submission-block"><h3>Format & length</h3><p>We recommend <strong>{submissions.wordCount}</strong>. {submissions.format}</p><a class="text-link" href={submissions.templateUrl}>IEEE conference template <Icon name="external" size={16} /></a><p class="small-note">{submissions.anonymity}</p></div>
+            <details class="submission-disclosure"><summary>How submissions are reviewed <Icon name="plus" size={18} /></summary><div><p>{submissions.review}</p><p>{submissions.revision}</p></div></details>
+            <details class="submission-disclosure"><summary>Publication & archival policy <Icon name="plus" size={18} /></summary><div><p>{submissions.publication}</p></div></details>
+          </div>
+          <aside class="submission-aside" aria-label="Submission status">
+            <span class="pill"><span class="coral-dot"></span> PREPARE YOUR CONTRIBUTION</span>
+            <p class="aside-overline">SUBMISSION DEADLINE</p>
+            <p class="deadline-display">{submissionDeadline?.display || 'To be announced'}<span>23:59 Anywhere on Earth</span></p>
+            <div class="aside-rule"></div><h3>Submission scope</h3><p>Submissions should identify a question relevant to at least one of the three workshop themes.</p>
+            {submissions.url ? <a class="button primary full-width" href={submissions.url}>Submit your work <Icon name="arrow" size={18} /></a> : <><button class="button unavailable full-width" type="button" disabled>Submission portal coming soon</button><p class="small-note">The submission link will appear here when the call opens.</p></>}
+            <a class="text-link" href={`mailto:${workshop.contact.email}`}>Contact the organizers <Icon name="arrow" size={16} /></a>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section dates-section" id="dates" aria-label="Important dates" tabindex="-1">
+      <div class="container">
+        <div class="section-row"><SectionHeading number="04" label="IMPORTANT DATES" title="Timeline" /><p class="timezone-note"><Icon name="clock" size={17} /> <span>{dateNotes.timezone}</span></p></div>
+        <ol class="timeline">{dates.map((date, i) => <li class:list={['milestone', { 'milestone-accent': i === 1 }]}><div class="milestone-track"><span>{String(i + 1).padStart(2, '0')}</span></div><p class="milestone-label">{date.label}</p>{date.date ? <time datetime={date.date}>{date.display}</time> : <strong>{date.display}</strong>}<p class="milestone-note">{date.note}</p></li>)}</ol>
+      </div>
+    </section>
+
+    <section class="section papers-section" id="papers" aria-label="Accepted papers" tabindex="-1">
+      <div class="container">
+        <SectionHeading number="05" label="ACCEPTED PAPERS" title="Accepted Papers" description="Workshop contributions will be listed after author notification." />
+        {papers.length ? <div class="papers-grid">{papers.map(paper => <PaperCard paper={paper} />)}</div> : <div class="papers-empty"><div class="paper-symbol" aria-hidden="true"><Icon name="file" size={36} /><span></span></div><div><h3>Papers to be announced</h3><p>Accepted papers, author details, and available paper links will be announced here after review.</p></div><a class="text-link" href="#participate">View submission guidelines <Icon name="arrow" size={18} /></a></div>}
+      </div>
+    </section>
+
+    <section class="section program-section" id="program" aria-label="Workshop program" tabindex="-1">
+      <div class="container program-layout">
+        <div class="program-intro"><SectionHeading number="06" label="THE PROGRAM" title="Workshop Schedule" description="A three-hour workshop with short presentations, challenge mapping, group discussions, and plenary synthesis." /><span class="pill violet-pill">{program.status}</span><p class="program-note">{program.note}</p><p class="small-note">{program.timezone}</p></div>
+        <ol class="agenda">{program.items.map(item => <li class:list={['agenda-item', `agenda-${item.kind}`]}><div class="agenda-time"><span>{item.start}</span><span>{item.end ? `— ${item.end}` : 'onwards'}</span></div><div class="agenda-content"><h3>{item.title}</h3><p>{item.description}</p>{item.speaker && <span class="agenda-speaker">{item.speaker}</span>}</div></li>)}</ol>
+      </div>
+    </section>
+
+    <section class="section organizers-section" id="organizers" aria-label="Workshop organizers" tabindex="-1">
+      <div class="container"><SectionHeading number="07" label="THE ORGANIZERS" title="Organizers" description="" /><div class="organizers-grid">{organizers.map((person, index) => <OrganizerCard person={person} index={index} />)}</div></div>
+    </section>
+
+    <section class="section faq-section" id="faq" aria-label="Frequently asked questions and contact" tabindex="-1">
+      <div class="container faq-grid"><div><SectionHeading number="08" label="FAQ & CONTACT" title="Frequently Asked Questions" /><p class="section-intro">Have a question about your work, participation, or access needs? Get in touch.</p><a class="contact-email" href={`mailto:${workshop.contact.email}`}>{workshop.contact.email}<Icon name="external" size={20} /></a><p class="small-note">{workshop.contact.name} · Primary organizer</p></div><div class="faq-list">{faq.map(item => <details><summary>{item.question}<Icon name="plus" size={18} /></summary><p>{item.answer}</p></details>)}</div></div>
+    </section>
+
+    <section class="closing-section" aria-label="Join the workshop"><div class="container closing-inner"><div><p class="eyebrow">XR × MOVEMENT × PEOPLE</p><h2>Participate in FPXR</h2></div><a class="button primary" href="#participate">View submission guidelines <Icon name="arrow" size={18} /></a></div></section>
+  </main>
+  <footer class="site-footer"><div class="container"><div class="footer-main"><a class="brand" href="#home">{workshop.acronym}<span class="brand-year">/ {workshop.year}</span></a><p>{workshop.name}<br/><span>{workshop.subtitle}</span></p><nav aria-label="Footer navigation"><a href={workshop.conference.url}>{workshop.conference.name} <Icon name="external" size={14} /></a><a href={`mailto:${workshop.contact.email}`}>Contact <Icon name="mail" size={14} /></a></nav></div><div class="footer-bottom"><p>© {workshop.year} {workshop.name} organizers.<span> Built with Astro.</span></p><a href="#home">Back to top <Icon name="up" size={16} /></a></div></div></footer>
+</Layout>

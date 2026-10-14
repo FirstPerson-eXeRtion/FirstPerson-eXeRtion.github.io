@@ -1,0 +1,11 @@
+---
+import type { Paper } from '../data/papers';
+import { publicPath } from '../lib/paths';
+import Icon from './Icon.astro';
+interface Props { paper: Paper }
+const { paper } = Astro.props;
+---
+<article class="paper-card" id={`paper-${paper.id}`}>
+  {paper.image && <img src={publicPath(paper.image)} alt={paper.imageAlt || ''} width="640" height="360" loading="lazy" decoding="async" />}
+  <div class="paper-content"><p class="eyebrow">{paper.type}</p><h3>{paper.title}</h3><p>{paper.authors.join(', ')}</p><div class="paper-links">{paper.pdf && <a href={publicPath(paper.pdf)}>Read paper <Icon name="file" size={16} /></a>}{paper.project && <a href={publicPath(paper.project)}>Project <Icon name="external" size={16} /></a>}</div></div>
+</article>

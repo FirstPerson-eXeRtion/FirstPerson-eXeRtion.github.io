@@ -1,0 +1,44 @@
+---
+import '../styles/global.css';
+import { workshop } from '../data/workshop';
+import { publicPath } from '../lib/paths';
+const title = `${workshop.name} (${workshop.acronym}) | ${workshop.conference.name}`;
+const canonical = Astro.site ? new URL(import.meta.env.BASE_URL, Astro.site).href : undefined;
+const socialImage = Astro.site ? new URL(publicPath('social-card.png'), Astro.site).href : undefined;
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: title,
+  description: workshop.description,
+  ...(canonical ? { url: canonical } : {}),
+  inLanguage: 'en',
+};
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0a1222" />
+    <meta name="color-scheme" content="dark" />
+    <title>{title}</title>
+    <meta name="description" content={workshop.description} />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <link rel="icon" type="image/svg+xml" href={publicPath('favicon.svg')} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={workshop.description} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    {socialImage && <meta property="og:image" content={socialImage} />}
+    <meta property="og:image:alt" content={`${workshop.name} — ${workshop.subtitle}`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData).replace(/</g, '\u003c')} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <slot />
+    <script>
+      import '../scripts/site';
+    </script>
+  </body>
+</html>

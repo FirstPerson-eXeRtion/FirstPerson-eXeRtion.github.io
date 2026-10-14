@@ -1,0 +1,24 @@
+---
+import { workshop } from '../data/workshop';
+import Icon from './Icon.astro';
+import HeroScene from './HeroScene.astro';
+---
+<section class="hero" id="home" aria-labelledby="hero-title">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow hero-eyebrow"><span class="status-dot"></span> A WORKSHOP AT {workshop.conference.name}</p>
+      <h1 id="hero-title">{workshop.titleLines[0]}<br/><span>{workshop.titleLines[1]}<span class="title-period">.</span></span></h1>
+      <p class="hero-subtitle">{workshop.subtitle}</p>
+      <p class="hero-description">{workshop.introduction}</p>
+      <div class="hero-actions"><a class="button primary" href="#participate">Call for participation <Icon name="arrow" size={18} /></a><a class="button secondary" href="#about">Explore the workshop <Icon name="arrow" size={17} /></a></div>
+      <p class="hero-footnote"><span class="coral-dot"></span> {workshop.tagline}</p>
+    </div>
+    <HeroScene />
+  </div>
+  <div class="container event-strip">
+    <div><Icon name="calendar" /><p><strong>{workshop.event.dateLabel}</strong><span>{workshop.event.dateNote}</span></p></div>
+    <div><Icon name="pin" /><p><strong>{workshop.event.location}</strong><span>{workshop.event.attendance}</span></p></div>
+    <div><Icon name="clock" /><p><strong>{workshop.event.format}</strong><span>{workshop.event.duration}</span></p></div>
+    <a href="#about" class="scroll-cue" aria-label="Discover the workshop"><span>SCROLL TO EXPLORE</span><span>↓</span></a>
+  </div>
+</section>

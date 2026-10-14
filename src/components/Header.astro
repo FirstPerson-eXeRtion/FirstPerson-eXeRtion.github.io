@@ -1,0 +1,17 @@
+---
+import Icon from './Icon.astro';
+import { navigation, workshop } from '../data/workshop';
+---
+<header class="site-header">
+  <div class="header-inner container">
+    <a class="brand" href="#home" aria-label={`${workshop.acronym} — Home`}>
+      <svg width="33" height="28" viewBox="0 0 33 28" fill="none" aria-hidden="true"><path d="m2 6 10 8L2 22M20 6l10 16m0-16L20 22" stroke="currentColor" stroke-width="2.5"/><circle cx="29" cy="3" r="2" fill="#ffad98" /></svg>
+      <span>{workshop.acronym}<span class="brand-year"> / {workshop.year}</span></span>
+    </a>
+    <button class="menu-toggle" aria-expanded="false" aria-controls="primary-navigation" aria-label="Open navigation menu" hidden><span></span><span></span></button>
+    <nav id="primary-navigation" aria-label="Main navigation">
+      {navigation.map(item => <a href={`#${item.id}`} data-nav-link>{item.label}</a>)}
+      <a class="nav-conference" href={workshop.conference.url}>IEEE VR <Icon name="external" size={14} /></a>
+    </nav>
+  </div>
+</header>
