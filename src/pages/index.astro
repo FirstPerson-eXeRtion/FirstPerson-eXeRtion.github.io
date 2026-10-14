@@ -34,7 +34,7 @@ const submissionDeadline = dates.find(date => date.label === 'Submission deadlin
     <section class="section topics-section" id="topics" aria-label="Topics of interest" tabindex="-1">
       <div class="container">
         <SectionHeading number="02" label="TOPICS OF INTEREST" title="Themes and Topics of Interest" description="The workshop focuses on three complementary themes in XR visualization and interaction during physical activity." />
-        <div class="topics-grid">{topics.map(topic => <article class={`topic-card topic-${topic.id}`}><div class="topic-top"><span class="topic-icon"><Icon name={topic.icon} size={30} /></span><span class="topic-index">{topic.id} / {topic.theme}</span></div><h3>{topic.title}</h3><p>{topic.description}</p><div class="tags">{topic.tags.map(tag => <span>{tag}</span>)}</div></article>)}</div>
+        <div class="topics-grid">{topics.map(topic => <article class={`topic-card topic-${topic.id}`}><div class="topic-top"><span class="topic-icon"><Icon name={topic.icon} size={30} /></span><span class="topic-index">{topic.id} / {topic.theme}</span></div><h3>{topic.title}</h3><p>{topic.description}</p></article>)}</div>
         <div class="topic-keywords"><span>ACROSS CONTEXTS</span><p>{topicKeywords.map((word, i) => <><span>{word}</span>{i < topicKeywords.length - 1 && <span class="keyword-dot" aria-hidden="true">·</span>}</>)}</p></div>
       </div>
     </section>
