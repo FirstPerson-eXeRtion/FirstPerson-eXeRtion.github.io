@@ -1,6 +1,6 @@
 export const submissions = {
   status: 'Submission portal coming soon',
-  url: null as string | null,
+  url: 'https://forms.gle/PYdHAdfe9UdYscJn6',
   types: ['Original research', 'Work in progress', 'Design studies', 'Position papers'],
   wordCount: '1,000–2,500 words',
   format: 'Authors are encouraged to use the official IEEE conference template. Longer submissions will be considered.',
