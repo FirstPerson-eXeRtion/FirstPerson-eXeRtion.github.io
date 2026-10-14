@@ -24,7 +24,7 @@ export const workshop = {
     duration: '3h + optional extended discussion at lunch',
     attendance: 'In person and online participation',
   },
-  contact: { name: "Ang 'Leon' Li", email: 'angli21@sigchi.org' },
+  //contact: { name: "Ang 'Leon' Li", email: 'angli21@sigchi.org' },
   registrationUrl: null as string | null,
 };
 
